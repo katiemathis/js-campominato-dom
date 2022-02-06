@@ -1,0 +1,97 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+header {
+    background-color: #fff;
+    min-height: 50px;
+
+}
+
+#logo {
+    margin: 0 0px 10px 50px;
+    float: left;
+
+}
+
+img {
+    float: left;
+    margin-bottom: 10px;
+    height: 50%;
+    vertical-align: middle;
+}
+
+#dropdown {
+    float: right;
+
+}
+
+#difficulty {
+    max-height: 20px;
+    width: 100px;
+
+}
+
+body {
+    background-color: #71ffcb;
+ 
+}
+
+
+.container {
+    width: 500px;
+    margin: 50px auto;
+
+}
+
+span {
+    font-weight: 600;
+    font-size: larger;
+    line-height: 500px;
+    margin: auto;
+ 
+}
+
+#grid {
+    height: 500px;
+
+}
+
+#grid::after {
+    display: block;
+    content: "";
+    clear: both;
+}
+
+.square {
+    border: solid 1px #000;
+    float: left;
+    color: black;
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.clicked {
+    background-color: #547ee9;
+} 
+
+.clicked-bomb {
+    background-color: red;
+}
+
+
+footer {
+    background-color: #fff;
+    min-height: 50px;
+}
+
+p {
+    margin-left: 50px;
+    padding-top: 10px;
+}
