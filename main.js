@@ -83,25 +83,34 @@ function play() {
         
         gridElement.appendChild(node);
 
-        const squares = document.getElementsByClassName('square');
+        node.addEventListener('click', function() {
+            this.classList.add('clikced');
+       });
 
-        for (let i = 0; i < squares.length; i++) {
+        const squares = document.getElementsByClassName('square')
+
+        for (let i = 0; i <= squares.length; i++) {
        
             node.addEventListener('click', function() {
-                this.classList.add('clicked');
 
-                if (bombe.includes(parseInt(squares[i].innerText))) {
+                if (!bombe.includes(parseInt(squares[i].innerText))) {
+                    squares[i].classList.add('clicked');
+                    //continue;
+
+
+                } else if (bombe.includes(parseInt(squares[i].innerText))) {
                     squares[i].classList.add('clicked-bomb');
+                    //squares[bombe].classList.add('clicked-bomb');
                     console.log('hai perso');
+                    console.log(bombe);
                     
-                };  
+                }; 
 
             });
-
-        }
+        };
 
 
         
 
-    }
+    };
 }
