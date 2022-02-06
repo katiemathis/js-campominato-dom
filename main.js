@@ -1,4 +1,3 @@
-
 const gridElement = document.getElementById('grid');
 
 const createGridElement = () => {
@@ -7,18 +6,22 @@ const createGridElement = () => {
     return node;
 }
 
-
-document.getElementById('start-play').addEventListener('click', play)
+document.getElementById('start-play').addEventListener('click', play);
 
 function play() {
     console.log('Lets go');
 
     const difficoltà = document.getElementById('difficulty').value;
     
-
+    const NUMERO_BOMBE = 16;
     
     let numeroCelle;
     let cellePerRiga;
+
+    
+    const gridElement = document.getElementById('grid');
+
+    grid.innerHTML = '';
 
     switch (difficoltà) {
         case 'Easy':
@@ -32,12 +35,40 @@ function play() {
             break;
     }
 
-    cellePerRiga = Math.sqrt(numeroCelle);
     
-    const gridElement = document.getElementById('grid');
+    cellePerRiga = Math.sqrt(numeroCelle);
+
+    var bombe = generaBombe(NUMERO_BOMBE, numeroCelle);
+    console.log(bombe);
+
+    function generaNumeroBombe (min, max) {
+        let getRandomInt = parseInt(Math.floor(Math.random() * (max - min + 1) + min));
+        return getRandomInt;
+    }
+    
+    function generaBombe() {
+        const bombeGenerate = [];
+    
+    
+        while (bombeGenerate.length < NUMERO_BOMBE) {
+            bombeGenerate.push(generaNumeroBombe(1, numeroCelle));
+
+    
+            const bomba = generaNumeroBombe(1, numeroCelle);
+            if (!bombeGenerate.includes(bomba)) {
+                bombeGenerate.push(bomba);
+            }
+                
+        }
+    
+        return bombeGenerate
+
+
+    
+    }
+    
     
 
-    grid.innerHTML = '';
 
     for (let i = 1; i<=numeroCelle; i++) {
 
@@ -50,84 +81,27 @@ function play() {
         let number = document.createTextNode(i);
         node.appendChild(number)
         
-        
-       
-        node.addEventListener('click', function() {
-            console.log(this);
-            this.classList.add('clicked');
-    
-        });
-    
         gridElement.appendChild(node);
-
-        function generaNumeroBombe (min, max) {
-            let getRandomInt = parseInt(Math.floor(Math.random() * (max - min + 1) + min));
-            return getRandomInt;
-        }
-
-    
-    }
-
-    //genera le bombe random
-
-    const NUMERO_BOMBE = 16;
-
-    var bombe = generaBombe(NUMERO_BOMBE, numeroCelle);
-    console.log('this is bombe ' + bombe);
-    
-    function generaBombe() {
-        const bombeGenerate = [];
-
-        const bomba = generaNumeroBombe(1, numeroCelle);
-    
-    
-        while (bombeGenerate.length < NUMERO_BOMBE) {
-            bombeGenerate.push(generaNumeroBombe(1, numeroCelle));
-    
-            //const bomba = generaNumeroBombe(1, numeroCelle);
-            if (!bombeGenerate.includes(bomba)) {
-                bombeGenerate.push(bomba);
-                console.log('this is bomba' + bomba);
-            }
-                
-        }
-
-
-    
-        return bombeGenerate
-
-    
-    } 
-
-    // this needs to go inside an event listener... how?
-
-    terminaGioco(1, numeroCelle);
-    
-    function terminaGioco () {
-    
 
         const squares = document.getElementsByClassName('square');
 
         for (let i = 0; i < squares.length; i++) {
-            if (bombe.includes(parseInt(squares[i].innerText))){
-                squares[i].classList.add('clicked-bomb')
-                console.log('end game' + bombe);
-            }
+       
+            node.addEventListener('click', function() {
+                this.classList.add('clicked');
 
+                if (bombe.includes(parseInt(squares[i].innerText))) {
+                    squares[i].classList.add('clicked-bomb');
+                    console.log('hai perso');
+                    
+                };  
+
+            });
 
         }
 
-        alert('HAI PERSO')
+
+        
+
     }
-
-
-    
-
-
-
-
-
-
-
-
 }
