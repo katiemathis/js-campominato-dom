@@ -39,7 +39,7 @@ function play() {
     cellePerRiga = Math.sqrt(numeroCelle);
 
     var bombe = generaBombe(NUMERO_BOMBE, numeroCelle);
-    console.log(bombe);
+    console.log('this is bombe' + bombe);
 
     function generaNumeroBombe (min, max) {
         let getRandomInt = parseInt(Math.floor(Math.random() * (max - min + 1) + min));
@@ -48,6 +48,8 @@ function play() {
     
     function generaBombe() {
         const bombeGenerate = [];
+        console.log('this is bombeGenerate')
+        console.log(bombeGenerate)
     
     
         while (bombeGenerate.length < NUMERO_BOMBE) {
@@ -57,22 +59,27 @@ function play() {
             const bomba = generaNumeroBombe(1, numeroCelle);
             if (!bombeGenerate.includes(bomba)) {
                 bombeGenerate.push(bomba);
+
             }
                 
         }
     
         return bombeGenerate
+        
 
 
     
     }
     
     
-
+    
 
     for (let i = 1; i<=numeroCelle; i++) {
 
+        
+
         const node = createGridElement();
+        
 
         const dimensione = `calc(100% /${cellePerRiga})`;
         node.style.width = dimensione;
@@ -83,34 +90,57 @@ function play() {
         
         gridElement.appendChild(node);
 
-        node.addEventListener('click', function() {
-            this.classList.add('clikced');
-       });
-
-        const squares = document.getElementsByClassName('square')
-
-        for (let i = 0; i <= squares.length; i++) {
-       
-            node.addEventListener('click', function() {
-
-                if (!bombe.includes(parseInt(squares[i].innerText))) {
-                    squares[i].classList.add('clicked');
-                    //continue;
-
-
-                } else if (bombe.includes(parseInt(squares[i].innerText))) {
-                    squares[i].classList.add('clicked-bomb');
-                    //squares[bombe].classList.add('clicked-bomb');
-                    console.log('hai perso');
-                    console.log(bombe);
-                    
-                }; 
-
-            });
-        };
-
-
+       // node.addEventListener('click', reveal); 
         
 
-    };
+       node.addEventListener('click', function() {
+        if (!bombe.includes(parseInt(node.innerText))) {
+           node.classList.add('clicked');    
+        } else {
+            alert('Bomba! Hai perso.');
+            node.classList.add('clicked-bomb');
+            console.log('this is node' + node)
+        };
+    });
+
+    /* LA REGISTRAZIONE DELLA LEZIONE CI CONSIGLIA DI TENERE LA FUNZIONE FUORI DAL CICLO FOR MA WHY??
+
+    function reveal () {
+        const t = 0;
+        console.log('tentativo' + t);
+        
+        const cellValue = parseInt(this.querySelector(".square").innerText);
+        if (!bombe.includes(parseInt(cellValue))) {
+            this.classList.add('clicked');
+            //alert('Bomba! Hai perso.');  
+        } else {
+            this.classList.add('clicked-bomb');    
+        };
+        this.removeEventListener('click', reveal);
+    }; */
+    
+
+
+
+    //const squares = document.getElementsByClassName('square');
+
+    //for (let x = 0; x <= squares.length; x++) {
+   
+        //squares.addEventListener('click', function() {
+
+            /*if (!bombe.includes(parseInt(squares[x].innerText))) {
+                squares[x].classList.add('clicked');*/
+                //continue;
+
+
+            /*} else if (bombe.includes(parseInt(squares[x].innerText))) {
+                squares[x].classList.add('clicked-bomb');
+                //squares[bombe].classList.add('clicked-bomb');
+                console.log('hai perso');
+                console.log(bombe);
+                
+            };*/ 
+
+       // });
+    //};
 }
