@@ -86,6 +86,13 @@ span {
 }
 
 
+
+#bomb-icon {
+    height: 60%;
+    margin: auto;
+}
+
+
 footer {
     background-color: #fff;
     min-height: 50px;
