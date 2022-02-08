@@ -116,14 +116,29 @@ function play() {
         //console.log(this)
 
         const node = this;
+        const numeroTentativi = 0;
 
-       if (!bombe.includes(parseInt(cellValue))) {
-        node.classList.add('clicked'); 
-        node.removeEventListener('click', addClick);
-        //arrayTentativi.push(cellValue);
+        if (!bombe.includes(parseInt(cellValue))) {
+            node.classList.add('clicked'); 
+
+            arrayTentativi.push(cellValue);
+            console.log('this is arrayTentativi' + arrayTentativi)
+
+            node.removeEventListener('click', addClick);
+
+        } else if (arrayTentativi.length == maxAttempts) {
+            winGame ()
+            
+
+        } else {
+            endGame ()
+            console.log('hai fatto ' + (arrayTentativi.length + 1) + ' tentativi.')
+            //add this to the HTML
+        }
+
 
          
-        } else {
+        /*} else {
             //alert('Bomba! Hai perso.');
             node.classList.add('clicked-bomb');
 
@@ -131,15 +146,20 @@ function play() {
 
            
             
-        };
+        };*/
 
         /*if(valore contenuto in bombe){
             endGame();
            }
            else if(valore non contenuto in array tentativi){
-              aggiungo tentativo all'array e controllo la lunghezza dell'array tentativi con il valore della variabile maxAttempts: se sono uguali hai vinto, altrimenti non fai nulla
+              aggiungo tentativo all'array e controllo la lunghezza dell'array tentativi 
+              con il valore della variabile maxAttempts: se sono uguali hai vinto, altrimenti non fai nulla
            }*/
     };
+
+    function winGame () {
+        alert('You won!');
+    }
 
     function endGame () {
         const squares = document.querySelectorAll(".square");
