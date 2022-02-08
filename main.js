@@ -11,12 +11,15 @@ document.getElementById('start-play').addEventListener('click', play);
 function play() {
     console.log('Lets go');
 
+    
+
     const difficoltà = document.getElementById('difficulty').value;
     
     const NUMERO_BOMBE = 16;
     
     let numeroCelle;
     let cellePerRiga;
+
 
     
     const gridElement = document.getElementById('grid');
@@ -34,8 +37,10 @@ function play() {
             numeroCelle = 49;
             break;
     }
+    // here we could have used css to create a dimension per square of 50px instead of using cellePerRiga
+    let maxAttempts = numeroCelle - NUMERO_BOMBE;
+    const arrayTentativi = [];
 
-    
     cellePerRiga = Math.sqrt(numeroCelle);
 
     var bombe = generaBombe(NUMERO_BOMBE, numeroCelle);
@@ -78,7 +83,8 @@ function play() {
 
         
 
-        const node = createGridElement();
+        const node = createGridElement(); //<div class="square"></div>
+        //console.log(node)
         
 
         const dimensione = `calc(100% /${cellePerRiga})`;
@@ -89,19 +95,74 @@ function play() {
         node.appendChild(number)
         
         gridElement.appendChild(node);
+        //log numero di tentativi
+        //let tentativi = 0;
 
        // node.addEventListener('click', reveal); 
+       node.addEventListener('click', addClick);
         
 
-       node.addEventListener('click', function() {
-        if (!bombe.includes(parseInt(node.innerText))) {
-           node.classList.add('clicked');    
+
+    };
+
+    function addClick() {
+ 
+        //tentativi += 1;
+        //console.log(tentativi);
+        //perché non va?
+
+        const cellValue = this.textContent;
+        console.log(cellValue);
+        //console.log(this)
+
+        const node = this;
+
+       if (!bombe.includes(parseInt(cellValue))) {
+        node.classList.add('clicked'); 
+        node.removeEventListener('click', addClick);
+        //arrayTentativi.push(cellValue);
+
+         
         } else {
-            alert('Bomba! Hai perso.');
+            //alert('Bomba! Hai perso.');
             node.classList.add('clicked-bomb');
-            console.log('this is node' + node)
+
+            endGame ()
+
+           
+            
         };
-    });
+
+        /*if(valore contenuto in bombe){
+            endGame();
+           }
+           else if(valore non contenuto in array tentativi){
+              aggiungo tentativo all'array e controllo la lunghezza dell'array tentativi con il valore della variabile maxAttempts: se sono uguali hai vinto, altrimenti non fai nulla
+           }*/
+    };
+
+    function endGame () {
+        const squares = document.querySelectorAll(".square");
+        //console.log(squares)
+
+        for (let i = 1; i< squares.length; i++) {
+            const singola = squares[i-1];
+            console.log('this is singola' + singola)
+            if (bombe.includes(i)) {
+                singola.classList.add('clicked-bomb');
+                
+            }
+
+            singola.removeEventListener('click', addClick);
+            
+        }
+
+    }
+ 
+    /*for (let i=1; i< numeroCelle.length; i++) {
+                this.removeEventListener('click', addClick)
+            }*/
+
 
     /* LA REGISTRAZIONE DELLA LEZIONE CI CONSIGLIA DI TENERE LA FUNZIONE FUORI DAL CICLO FOR MA WHY??
 
