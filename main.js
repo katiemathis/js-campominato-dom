@@ -13,11 +13,10 @@ function play() {
 
     
 
-    const difficoltà = document.getElementById('difficulty').value;
     
     const NUMERO_BOMBE = 16;
     
-    let numeroCelle;
+    const numeroCelle = parseInt(document.getElementById('difficulty').value);
     let cellePerRiga;
 
 
@@ -26,17 +25,6 @@ function play() {
 
     grid.innerHTML = '';
 
-    switch (difficoltà) {
-        case 'Easy':
-            numeroCelle = 100;
-            break;
-        case 'Hard':
-            numeroCelle = 81;
-            break;
-        case 'Crazy':
-            numeroCelle = 49;
-            break;
-    }
     // here we could have used css to create a dimension per square of 50px instead of using cellePerRiga
     let maxAttempts = numeroCelle - NUMERO_BOMBE;
     const arrayTentativi = [];
